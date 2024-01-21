@@ -27,3 +27,5 @@ npm run dev
 ```sh
 npm run build
 ```
+# QSHTrip
+A Vue small case: QSH journey trip
