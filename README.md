@@ -29,3 +29,4 @@ npm run build
 ```
 # QSHTrip
 A Vue small case: QSH journey trip
+1.21
