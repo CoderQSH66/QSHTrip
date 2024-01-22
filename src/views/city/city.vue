@@ -10,6 +10,7 @@
         </template>
       </van-tabs>
     </div>
+
     <div class="content">
       <!-- 做法一：通过current来决定展示的内容 -->
       <!-- <CityGroups :current="current"></CityGroups> -->
@@ -44,6 +45,7 @@
   const cityStore = useCityStore()
   const { allCity } = storeToRefs(cityStore)
   cityStore.getAllCityAction()
+
   
   // content内容切换
   const current = computed(() => {

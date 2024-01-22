@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import useCityStore from "@/stores/modules/city"
+  import { computed } from 'vue';
+  import useCityStore from "@/stores/modules/city"
 
   // 接收父组件传递的数据 
   const { current } =  defineProps({

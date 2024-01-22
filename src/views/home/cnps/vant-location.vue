@@ -51,6 +51,10 @@
     </template>
   </div>
 
+  <!-- 搜索按钮 -->
+  <div class="serch-btn section-pad">
+    <button @click="onSearch">开始搜索</button>
+  </div>
 </template>
 
 <script setup>
@@ -62,6 +66,7 @@
 
   // city的store实例对象
   const cityStore = useCityStore()
+
   // home的store实例对象
   const homeStore = useHomeStore()
 
@@ -97,9 +102,18 @@
     return day
   } 
 
-  // 请求获取热门建议数据
-  homeStore.getHotSuggestsAction()
-  console.log(homeStore.hotSuggests)
+  // 点击搜索跳转
+  const onSearch = () => {
+    router.push({
+      path: "/search",
+      query: {
+        start: start.value,
+        end: end.value,
+        currentCity: cityStore.cityInfo.cityName
+      }
+    })
+  }
+
 </script>
 
 <style lang='less' scoped>
@@ -147,6 +161,17 @@
       margin: 5px 6px;
       padding: 3px 6px;
       border-radius: 14px;
+    }
+  }
+  .serch-btn {
+    text-align: center;
+    color: aliceblue;
+    button {
+      border-radius: 14px;
+      width: 69%;
+      height: 36px;
+      background-image: var(--theme-linear-gradient);
+      letter-spacing: 5px;
     }
   }
 </style>

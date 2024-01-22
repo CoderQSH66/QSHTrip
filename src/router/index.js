@@ -32,8 +32,8 @@ const router = createRouter({
       component: () => import("@/views/city/city.vue")
     },
     {
-      path: "/home",
-      component: () => import("@/views/home/home.vue")
+      path: "/search",
+      component: () => import("@/views/search/search.vue")
     }
   ]
 })
