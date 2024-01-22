@@ -1,5 +1,8 @@
 <template>
-  <div class='house-list'>
+  <div class='house-item'>
+    <div class="cover">
+      <img :src="houseData.image.url" alt="">
+    </div>
     <div class="desc">
       <span>{{ houseData.summaryText }}</span>
       <div class="name">
@@ -7,37 +10,49 @@
       </div>
       <div class="price">
         <div class="rate">
-          <template v-for="i of 5"><van-icon name="star-o" color="#fff"/></template>
+          <van-rate :model-value="number" size="15px" color="#fff" allow-half readonly/>
         </div>
-        <span>￥{{ houseData.finalPrice }}</span>
+        <span >￥{{ houseData.finalPrice }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-  defineProps({
+  import { computed } from 'vue';
+
+  const { houseData } = defineProps({
     houseData: Object,
     default: () => ({})
+  })
+
+  const number = computed(() => {
+    return Number(houseData.commentScore)
   })
   
 </script>
 
 <style lang='less' scoped>
-  .house-list {
+  .house-item {
+    overflow: hidden;
     position: relative;
     flex: none;
     margin: 10px 0;
     border-radius: 10px;
-    width: 150px;
-    height: 230px;
-    background: url("https://pic.tujia.com/upload/landlordunit/day_200728/thumb/202007281552537926_360_480.jpg") center/100% 100% no-repeat;
+    width: 49%;
+    .cover {
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
     .desc {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 10px 5px;
+      padding: 6px 5px;
       color: #fff;
       span {
         display: block;
@@ -45,6 +60,7 @@
         margin: 6px 0;
       }
       .name {
+        font-size: 15px;
         text-overflow: ellipsis;
         overflow: hidden;
         display: -webkit-box;
@@ -55,6 +71,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin: 5px 0;
       }
     }
   }

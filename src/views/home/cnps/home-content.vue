@@ -6,23 +6,31 @@
         <template v-if="item.discoveryContentType === 9">
           <homeContentType9 :houseData="item.data"></homeContentType9>
         </template>
-    </template>
+        <template v-if="item.discoveryContentType === 3">
+          <homeContentType3 :houseData="item.data"></homeContentType3>
+        </template>
+      </template>
     </div>
+    <button @click="onMoreHouse">加载更多</button>
   </div>
 </template>
 
 <script setup>
-  import homeContentType9 from "./home-content-type9.vue";
+  import homeContentType9 from "../../../components/home-content-items/home-content-type9.vue"
+  import homeContentType3 from "../../../components/home-content-items/home-content-type3.vue"
   import useHomeStore from "@/stores/modules/home"
   
   const homeStore = useHomeStore()
+  const onMoreHouse = () => {
+    homeStore.getHouseListAction()
+  }
   
 </script>
 
 <style lang='less' scoped>
   .house-list {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
 </style>
