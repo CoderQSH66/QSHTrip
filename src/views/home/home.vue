@@ -2,11 +2,14 @@
   <div class="home">
     <!-- <TopTitle></TopTitle> -->
     <VantTopTitle></VantTopTitle>
+
     <div class="banner">
       <img src="../../assets//img//home/banner.webp" alt="">
     </div>
+
     <!-- <Location></Location> -->
     <VantLocation></VantLocation>
+    
   </div>
 </template>
 
