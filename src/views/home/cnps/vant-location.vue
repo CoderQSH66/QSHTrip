@@ -15,12 +15,12 @@
   <div class="date-search section-pad" @click="chooceDate">
     <div class="enter">
       <span>入住</span>
-      <div class="start">{{ start }}</div>
+      <div class="start">{{ startDateStr }}</div>
     </div>
     <div class="total">共{{ diff }}晚</div>
     <div class="leave">
       <span>离店</span>
-      <div class="end">{{ end }}</div>
+      <div class="end">{{ endDateStr }}</div>
     </div>
   </div>
   <!-- 日期组件 -->
@@ -60,15 +60,20 @@
 <script setup>
   import { useRouter } from 'vue-router';
   import useCityStore from "@/stores/modules/city"
-  import { ref } from 'vue';
+  import { computed, ref, toRefs } from 'vue';
   import { formatMonthDay, formatMonthDayadd, formatDiff } from "@/utils/format_date"
   import useHomeStore from "@/stores/modules/home"
+  import useMainStore from '@/stores/modules/main';
+  import { storeToRefs } from 'pinia';
 
   // city的store实例对象
   const cityStore = useCityStore()
 
   // home的store实例对象
   const homeStore = useHomeStore()
+
+  // main的store实例对象
+  const mainStore = useMainStore()
 
   // 点击进入city页面
   const router = useRouter()
@@ -77,36 +82,22 @@
   }
 
   // 日期选择
+  const { liveTime } = storeToRefs(mainStore)
 
-  const start = ref(formatMonthDay(new Date()))
-  const end = ref(formatMonthDayadd(new Date(), 1))
-  const diff = ref(1)
+  const startDateStr = computed(() => formatMonthDay(liveTime.value.startDate))
+  const endDateStr = computed(() => formatMonthDay(liveTime.value.endDate))
+  const diff = computed(() => formatDiff(liveTime.value.startDate, liveTime.value.endDate))
   
   const show = ref(false);
   const chooceDate = () => {
     show.value = true
   }
 
-  homeStore.$patch({
-        liveTime: {
-          start: start.value,
-          end: end.value
-        }
-      })
-
   const onConfirm = (dates) => {
-      show.value = false;
-      start.value = formatMonthDay(dates[0])
-      end.value = formatMonthDay(dates[1])
-      diff.value = formatDiff(dates[0], dates[1])
-      homeStore.$patch({
-        liveTime: {
-          start: start.value,
-          end: end.value
-        }
-      })
-      console.log(homeStore.$state)
-    };
+    show.value = false;
+    liveTime.value.startDate = dates[0]
+    liveTime.value.endDate = dates[1]
+  };
   
   const formatter = (day) => {
     if (day.type === 'start') {

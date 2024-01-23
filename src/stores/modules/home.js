@@ -8,10 +8,6 @@ const useHomeStore = defineStore("home", {
     houseList: [],
     currentPage: 1,
     isShow: false,
-    liveTime: {
-      start: '',
-      end: ''
-    }
   }),
   actions: {
     async getHotSuggestsAction() {

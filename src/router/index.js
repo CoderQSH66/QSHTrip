@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import useMainStore from "@/stores/modules/main";
+
 const asnycCity = () => import("@/views/layout/index.vue")
 
 const router = createRouter({
@@ -46,8 +48,23 @@ const router = createRouter({
           alias: "/favor"
         }
       ]
+    },
+    {
+      path: "/login",
+      component: () => import("@/views/login/login.vue"),
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  const mainStore = useMainStore()
+  mainStore['i-token'] = localStorage.getItem("i-token")
+  if ( to.path !== "/login") {
+    if (!mainStore['i-token'])
+    router.push("/login")
+  } else {
+
+  }
 })
 
 export default router

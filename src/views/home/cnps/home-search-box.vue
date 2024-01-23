@@ -3,11 +3,11 @@
     <div class="time">
       <div class="start">
         <span>住</span>
-        <span class="s-time">{{ homeStore.liveTime.start }}</span>
+        <span class="s-time">{{ startDateStr }}</span>
       </div>
       <div class="end">
         <span>离</span>
-        <span class="s-time">{{ homeStore.liveTime.end }}</span>
+        <span class="s-time">{{ endDateStr }}</span>
       </div>
     </div>
     <div class="input-e">
@@ -18,21 +18,28 @@
 </template>
 
 <script setup>
-  import useHomeStore from "@/stores/modules/home"
+  import useMainStore from '@/stores/modules/main';
+  import { storeToRefs } from 'pinia';
+  import { computed } from 'vue';
+  import { formatMonthDay } from "@/utils/format_date"
 
-  const homeStore = useHomeStore()
-  
+  const mainStore = useMainStore()
+  const { liveTime } = storeToRefs(mainStore)
+
+  const startDateStr = computed(() => formatMonthDay(liveTime.value.startDate, "MM.DD"))
+  const endDateStr = computed(() => formatMonthDay(liveTime.value.endDate, "MM.DD"))
 </script>
 
 <style lang='less' scoped>
   .search {
     display: flex;
     color: rgb(106, 106, 106);
-    background-color: rgb(242, 247, 247);
+    background-color: rgb(243, 243, 243);
     .time {
-      font-size: 13px;
+      font-size: 12px;
       span {
-        padding: 1px 1px;
+        display: inline-block;
+        padding: 2px 2px;
       }
       .s-time {
         color:  rgb(7, 7, 7);
