@@ -11,7 +11,6 @@
         </template>
       </template>
     </div>
-    <button @click="onMoreHouse">加载更多</button>
   </div>
 </template>
 
@@ -21,9 +20,7 @@
   import useHomeStore from "@/stores/modules/home"
   
   const homeStore = useHomeStore()
-  const onMoreHouse = () => {
-    homeStore.getHouseListAction()
-  }
+
   
 </script>
 

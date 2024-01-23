@@ -6,13 +6,12 @@
           <span>{{ item.text }}</span>
         </van-tabbar-item>
       </template>
-
     </van-tabbar>
   </div>
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
   const tabBarData = [
     {
@@ -37,14 +36,29 @@
     }
   ]
   const active = ref(0)
-
   const route = useRoute()
 
+  // 获取当前hash所在index
+  // tabBarData.forEach((item, index) => {
+  //   if (location.hash.includes(item.path)) {
+  //     active.value = index
+  //   }
+  // })
+  active.value = computed(() => {
+    const index = tabBarData.findIndex(item => location.hash.includes(item.path))
+    return index
+  }).value
+
+  // 侦听hash的变化
   watch(() => (route.path), (newPath) => {
-    tabBarData.forEach((item, index) => {
-      if (item.path === newPath) {
-        active.value = index
-      }
+    // tabBarData.forEach((item, index) => {
+    //   if (item.path === newPath) {
+    //     console.log(item.path, active.value)
+    //     active.value = index
+    //   }
+    // })
+    active.value = tabBarData.findIndex((item) => {
+      return item.path === newPath
     })
   })
   

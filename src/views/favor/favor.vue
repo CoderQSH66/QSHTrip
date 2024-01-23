@@ -1,5 +1,10 @@
 <template>
-  <div class="favor">favor</div>
+  <div class="favor">
+    <template v-for="i of 100">
+      <div>1111</div>
+    </template>
+
+  </div>
 </template>
 
 <script setup>

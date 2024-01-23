@@ -13,10 +13,10 @@ const router = createRouter({
           path: "/home",
           component: () => import("@/views/home/home.vue")
         },
-        {
-          path: "/favor",
-          component: () => import("@/views/favor/favor.vue")
-        },
+        // {
+        //   path: "/favor",
+        //   component: () => import("@/views/favor/favor.vue")
+        // },
         {
           path: "/order",
           component: () => import("@/views/order/order.vue")
@@ -34,6 +34,18 @@ const router = createRouter({
     {
       path: "/search",
       component: () => import("@/views/search/search.vue")
+    },
+    {
+      path: "/favor",
+      component: asnycCity,
+      redirect: "/favor/index",
+      children: [
+        {
+          path: "index",
+          component: () => import("@/views/favor/favor.vue"),
+          alias: "/favor"
+        }
+      ]
     }
   ]
 })

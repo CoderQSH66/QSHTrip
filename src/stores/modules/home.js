@@ -6,7 +6,12 @@ const useHomeStore = defineStore("home", {
     hotSuggests: [],
     categories: [],
     houseList: [],
-    currentPage: 1
+    currentPage: 1,
+    isShow: false,
+    liveTime: {
+      start: '',
+      end: ''
+    }
   }),
   actions: {
     async getHotSuggestsAction() {

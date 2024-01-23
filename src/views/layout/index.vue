@@ -4,7 +4,7 @@
     <div class="top">
       <RouterView></RouterView>
     </div>
-
+    
     <VantTabBar></VantTabBar>
     
   </div>
@@ -18,6 +18,6 @@
 <style lang='less' scoped>
   .top {
     height: calc(100vh - 50px);
-    overflow-y: scroll;
+    overflow: scroll;
   }
 </style>

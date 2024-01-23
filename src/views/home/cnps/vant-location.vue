@@ -77,20 +77,35 @@
   }
 
   // 日期选择
+
   const start = ref(formatMonthDay(new Date()))
   const end = ref(formatMonthDayadd(new Date(), 1))
   const diff = ref(1)
-
+  
   const show = ref(false);
   const chooceDate = () => {
     show.value = true
   }
+
+  homeStore.$patch({
+        liveTime: {
+          start: start.value,
+          end: end.value
+        }
+      })
 
   const onConfirm = (dates) => {
       show.value = false;
       start.value = formatMonthDay(dates[0])
       end.value = formatMonthDay(dates[1])
       diff.value = formatDiff(dates[0], dates[1])
+      homeStore.$patch({
+        liveTime: {
+          start: start.value,
+          end: end.value
+        }
+      })
+      console.log(homeStore.$state)
     };
   
   const formatter = (day) => {
