@@ -8,9 +8,7 @@
       <template #indicator="{ active, total }">
         <div class="indicator">
           <template v-for="(value, key, index) of swipeDataOb" :key="index">
-            <div class="item" :class="{active: swipeData[active]?.enumPictureCategory == key}"
-              @click="onclickItem(active, key)"
-            >
+            <div class="item" :class="{active: swipeData[active]?.enumPictureCategory == key}">
               <span>{{ formatTitle(value[0].title) }}</span>
               <span v-if="swipeData[active]?.enumPictureCategory == key">{{ getIndex(active, value)}}/{{ value.length }}</span>
             </div>
@@ -23,9 +21,10 @@
 </template>
 
 <script setup>
-  // 记录当前所在title
-  let currentKey = -1
+  // import { ref } from 'vue';
 
+  // // 记录当前所在active
+  // let activeOnclick = ref(0)
   // 接收轮播数据
   const { swipeData } = defineProps({
     swipeData: Array,
@@ -52,15 +51,23 @@
     return titleReg.exec(title)[1]
   }
 
-  // 点击切换acive
-  const onclickItem = (key) => {
-    currentKey = key
-  }
+  // // 点击切换acive
+  // const onclickItem = (value) => {
+  //   activeOnclick.value = swipeData.findIndex(item => {
+  //     return item.url === value[0].url
+  //   })
+  // }
+
+  // // 自动切换
+  // const onChange = (index) => {
+  //   activeOnclick.value = index
+  //   index = activeOnclick.value
+  // }
 
   // 获取当前图片所在组中的索引
   const getIndex = (active, value) => {
     return value.findIndex(item => {
-      return item.url === swipeData[active].url
+      return item.url === swipeData[active]?.url
     }) + 1
   }
 

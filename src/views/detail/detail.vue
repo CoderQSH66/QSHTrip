@@ -16,11 +16,17 @@
     <div class="swipe" v-if="mainPart">
       <detail-swipe :swipeData="mainPart.topModule.housePicture.housePics"></detail-swipe>
     </div>
+
+    <!-- top详细信息 -->
+    <div class="info" v-if="mainPart">
+      <detailTopinfos :topinfos="mainPart.topModule"></detailTopinfos>
+    </div>
   </div>
 </template>
 
 <script setup>
   import detailSwipe from "./cpns/detail-swipe.vue"
+  import detailTopinfos from "./cpns/detail-topinfos.vue";
   import { computed, ref } from "vue";
   import { useRoute, useRouter } from "vue-router"
   import { getDetailInfos } from "@/services"
@@ -30,13 +36,13 @@
 
   // 获取房间详细信息数据
   const detailInfos = ref({})
-  const mainPart = computed(() => detailInfos.value.mainPart)
-  const currentHouse = computed(() => detailInfos.value.currentHouse)
+  const mainPart = computed(() => detailInfos?.value?.mainPart)
+  // const currentHouse = computed(() => detailInfos?.value?.currentHouse)
 
   // 发送请求获取数据
   getDetailInfos(route.params.id).then(res => {
-    detailInfos.value = res.data
-    console.log(mainPart.value.topModule.housePicture)
+    detailInfos.value = res?.data
+    // console.log(mainPart.value.topModule.housePicture)
   })
 
   // 点击左侧返回按钮
