@@ -9,10 +9,10 @@ export default function useScroll(selector) {
   let throttleListen = null
   const listenScrollEle = function(element) {
     return function listenCallBack() {
-      console.log("监听到滚动")
+      // console.log("监听到滚动")
       // console.log(element.scrollTop, element.clientHeight, element.scrollHeight )
       scrollTop.value = element.scrollTop
-      if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+      if (element.scrollTop + element.clientHeight >= element.scrollHeight - 10) {
         console.log("滚动到底部")
         isScrollBottom.value = true
       }

@@ -2,6 +2,7 @@
   --primary-color: #ff9654;
   --primary-font-color: #7E8489;
   --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
+  --van-primary-color: var(--primary-color) !important;
 }
 
 body {

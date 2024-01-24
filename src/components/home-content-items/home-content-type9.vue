@@ -10,7 +10,7 @@
       </div>
       <div class="price">
         <div class="rate">
-          <van-rate :model-value="number" size="15px" color="#fff" allow-half readonly/>
+          <van-rate :model-value="rateNumber" size="15px" color="#fff" allow-half readonly/>
         </div>
         <span >￥{{ houseData.finalPrice }}</span>
       </div>
@@ -26,7 +26,7 @@
     default: () => ({})
   })
 
-  const number = computed(() => {
+  const rateNumber = computed(() => {
     return Number(houseData.commentScore)
   })
   

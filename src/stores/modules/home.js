@@ -1,5 +1,7 @@
 import { getHotSuggests, getCategories, getHouseList } from "@/services"
 import { defineStore } from "pinia"
+import useMainStore from "./main"
+
 
 const useHomeStore = defineStore("home", {
   state: () => ({

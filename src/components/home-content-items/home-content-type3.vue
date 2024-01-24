@@ -1,5 +1,5 @@
 <template>
-  <div class='house-item-v3'>
+  <div class='house-item'>
     <div class="cover">
       <img :src="houseData.image.url" alt="">
     </div>
@@ -30,7 +30,7 @@
 </script>
 
 <style lang='less' scoped>
-  .house-item-v3 {
+  .house-item {
     position: relative;
     width: 49%;
     margin: 10px 0;

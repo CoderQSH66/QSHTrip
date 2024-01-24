@@ -1,15 +1,16 @@
 <template>
   <div class="app">
     <!-- <login v-if="!mainStore['i-token']"></login> -->
-    <RouterView ></RouterView>
+    <loading></loading>
+    <RouterView></RouterView>
   </div>
 </template>
 
 <script setup>
   // import login from "./views/login/login.vue"
-  // import useMainStore from "./stores/modules/main";
+  import loading from "./views/loading/loading.vue"
 
-  // const mainStore = useMainStore()
+
 
 </script>
 

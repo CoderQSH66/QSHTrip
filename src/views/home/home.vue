@@ -30,10 +30,12 @@
   import { computed, ref, watch } from "vue";
 
   import useHomeStore from "@/stores/modules/home"
+  import useMainStore from "@/stores/modules/main";
   import useScroll from "@/hooks/useScroll"
 
   // 创建homeStore实例
   const homeStore = useHomeStore()
+  const mainStore = useMainStore()
   // 请求获取热门建议数据
   homeStore.getHotSuggestsAction()
   // 获取分类数据
