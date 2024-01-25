@@ -31,7 +31,7 @@
     default: () => ({})
   })
 
-  console.log(topinfos)
+  // console.log(topinfos)
 </script>
 
 <style lang='less' scoped>
