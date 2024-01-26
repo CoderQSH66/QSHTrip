@@ -16,14 +16,19 @@
         default: () => ['cba', 'nba', 'abc', 'mba', 'coder']
       }
     },
-    data: () => ({
-      currentIndex: 0
-    }),
+    data() {
+      return {
+        currentIndex: 0
+      }
+    },
     emits: ["onClickTab"],
     methods: {
       onClick(index) {
         this.currentIndex = index
         this.$emit("onClickTab", index)
+      },
+      setIndex(cindex) {
+        this.currentIndex = cindex
       }
     }
   }

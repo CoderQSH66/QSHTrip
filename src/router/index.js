@@ -22,10 +22,6 @@ const router = createRouter({
         {
           path: "/order",
           component: () => import("@/views/order/order.vue")
-        },
-        {
-          path: "/message",
-          component: () => import("@/views/message/message.vue")
         }
       ]
     },
@@ -36,6 +32,10 @@ const router = createRouter({
     {
       path: "/search",
       component: () => import("@/views/search/search.vue")
+    },
+    {
+      path: "/message",
+      component: () => import("@/views/message/message.vue")
     },
     {
       path: "/favor",

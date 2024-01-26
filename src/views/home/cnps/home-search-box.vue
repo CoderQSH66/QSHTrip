@@ -12,7 +12,8 @@
     </div>
     <div class="input-e">
       <input type="text" placeholder="关键字/位置/民宿">
-      <i class="s-icon"></i>
+      <!-- <i class="s-icon"></i> -->
+      <van-icon name="search" size="26"/>
     </div>
   </div>
 </template>
@@ -34,7 +35,7 @@
   .search {
     display: flex;
     color: rgb(106, 106, 106);
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(255, 252, 252);
     .time {
       font-size: 12px;
       span {

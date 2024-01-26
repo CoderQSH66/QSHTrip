@@ -34,12 +34,12 @@
 
     <!-- 用户评论 -->
     <div class="comment" v-if="mainPart">
-      <detailComment name="评论" :ref="getSectionRef"></detailComment>
+      <detailComment name="评论" :ref="getSectionRef" :hot-comment="mainPart.dynamicModule.commentModule"></detailComment>
     </div>
 
     <!-- 用户须知 -->
     <div class="rules" v-if="mainPart">
-      <detailRules name="须知" :ref="getSectionRef"></detailRules>
+      <detailRules name="须知" :ref="getSectionRef" :rules="mainPart.dynamicModule.rulesModule"></detailRules>
     </div>
 
     <!-- 周边位置 -->
@@ -47,8 +47,10 @@
       <detailMap name="位置" :ref="getSectionRef" :loaction="mainPart.dynamicModule.positionModule"></detailMap>
     </div>
 
+    <!-- 价格说明 -->
+    <detailIntrolduction v-if="mainPart" :introl="mainPart.introductionModule"></detailIntrolduction>
     <!-- 顶部导航control -->
-    <detailTabControl  v-if="isShowTabCtrol" @onClickTab="onClickTab" ></detailTabControl>
+    <detailTabControl  ref="tabControl" v-if="isShowTabCtrol" @onClickTab="onClickTab" :title="['描述','房屋','房东','评论','须知','位置']"></detailTabControl>
   </div>
 </template>
 
@@ -61,7 +63,8 @@
   import detailRules from "./cpns/detail-rules.vue"
   import detailMap from "./cpns/detail-map.vue"
   import detailTabControl from "./cpns/detail-tab-control.vue"
-  import { computed, onMounted, ref, watch } from "vue";
+  import detailIntrolduction from "./cpns/detail-introlduction.vue";
+  import { computed, ref, watch } from "vue";
   import { useRoute, useRouter } from "vue-router"
   import { getDetailInfos } from "@/services"
   import useScroll from "@/hooks/useScroll";
@@ -82,34 +85,53 @@
 
   // 点击左侧返回按钮
   const onClickLeft = () => {
-    router.back()
+    router.push("/home")
   }
   
-  // 监听滚动
+  // 获取滚动scrollTop
   const { scrollTop } = useScroll()
   const isShowTabCtrol = computed(() => {
     return scrollTop.value > 300
   })
-  // watch(() => scrollTop.value, (newValue) => {
-  //   console.log(newValue)
-  // })
 
   // 点击tabcrol进行跳转
   const eleList = []
   const getSectionRef = (value) => {
-    console.log(value.$el.getAttribute("name"))
+    if (!value) return
+    eleList.push(value.$el)
   }
-  // const eleList = ref({})
-  // const getSectionRef = (value) => {
-  //   console.log(value)
-  // }
   
-  // const onClickTab = (index) => {
-  //   window.scrollTo({
-  //     top: eleList[index].offsetTop - 46,
-  //     behavior: "smooth"
-  //   })
-  // } 
+  let isClick =false
+  let distance = 0
+  const onClickTab = (index) => {
+    isClick = true
+    distance = eleList[index].offsetTop - 46
+    window.scrollTo({
+      top: distance ,
+      behavior: "smooth"
+    })
+  }
+
+  // 侦听页面滚动
+  const tabControl = ref()
+  watch(() => scrollTop.value, (newValue) => {
+    if (newValue === distance) isClick = false
+    if (isClick) return
+    let currentIndex = eleList.length - 1
+    try {
+      eleList.forEach((item, index) => {
+        if (item.offsetTop > newValue + 46) {
+          currentIndex = index - 1
+          throw new Error(); //结束循环
+        }
+      })
+    } catch(e) {
+      tabControl.value?.setIndex(currentIndex)
+      // console.log(currentIndex)
+    }
+  })
+
+
 </script>
 
 <style lang='less' scoped>

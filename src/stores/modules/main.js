@@ -8,7 +8,8 @@ const useMainStore = defineStore("main", {
       endDate: dayjs(new Date()).add(1, "day")
     },
     'i-token': "",
-    isShowLoading: false
+    isShowLoading: false,
+    keepAlive: false
   })
 })
 

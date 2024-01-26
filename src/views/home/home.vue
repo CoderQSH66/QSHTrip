@@ -1,5 +1,5 @@
 <template>
-  <div class="home"> 
+  <div class="home" ref="homeRef"> 
     <VantTopTitle></VantTopTitle>
 
     <div class="banner">
@@ -27,7 +27,7 @@
   import cateScroll from "./cnps/cate-scroll.vue";
   import homeContent from "./cnps/home-content.vue";
   import homeSearchBox from "./cnps/home-search-box.vue";
-  import { computed, ref, watch } from "vue";
+  import { computed, onActivated, ref, watch } from "vue";
 
   import useHomeStore from "@/stores/modules/home"
   import useMainStore from "@/stores/modules/main";
@@ -49,7 +49,7 @@
   }
 
   // 监听滚动
-  const {isScrollBottom, scrollTop} = useScroll(".top")
+  const {isScrollBottom, scrollTop} = useScroll(".home")
   watch(isScrollBottom, (newValue) => {
     if (newValue) {
       homeStore.getHouseListAction().then(res => {
@@ -62,11 +62,21 @@
   const isShowSearch = computed(() => {
     return scrollTop.value > 200
   })
+
+  // 页面切换保留滚动位置
+  const homeRef = ref()
+  onActivated(() => {
+    homeRef.value?.scrollTo({
+      top: scrollTop.value 
+    })
+  })
   
 </script>
 
 <style lang='less' scoped>
   .home {
+    height: calc(100vh - 50px);
+    overflow: scroll;
     .seacrch-box {
       position: fixed;
       z-index: 99;
